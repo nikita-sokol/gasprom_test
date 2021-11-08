@@ -1,19 +1,25 @@
 import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchServiseContent} from "../asyncActions/fetching";
+import {GET_SERVICE_REQUESTED} from "../saga/reducers/serviceContentReducer";
+import ErrorBlock from "../components/UI/error/ErrorBlock";
+import Loader from "../components/UI/Loader/Loader";
 
 const ServiceIdPage = () => {
     const dispatch = useDispatch();
     const params = useParams();
     const store = useSelector(store => store.serviceContent);
+    const error = store.error;
+    const loading = store.loading;
+    const service = store.services.find(i => i.id === params.id);
 
     useEffect(()=>{
-        dispatch(fetchServiseContent(store, params));
+        if (!service) {
+            dispatch({type:GET_SERVICE_REQUESTED, payload: params.id});
+        }
     },[]);
 
-    const loading = store.loading;
-    const service = store.services.find(i => i.id == params.id);
+
 
     return (
         <div style={{textAlign: 'left', paddingLeft: '20px'}}>
@@ -24,7 +30,9 @@ const ServiceIdPage = () => {
                         <p>{service.content}</p>
                         <p>Цена: {service.price} р.</p>
                     </div>)
-                    :   "Подождать нужно..."
+                    : (error) ?
+                        <ErrorBlock action={{type:GET_SERVICE_REQUESTED, payload: params.id}}/>
+                    : <Loader/>
             }
         </div>
     );

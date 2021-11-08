@@ -1,0 +1,19 @@
+.block {
+    padding: 12px 40px;
+    border-radius: 5px;
+    background: #ffb4b4;
+    display: inline-flex;
+    justify-content: center;
+}
+.text {
+    color: #970000;
+}
+.button {
+    color: #fff;
+    cursor: pointer;
+    padding: 7px;
+    border: 0 solid teal;
+    border-radius: 5px;
+    background: #4e4e4e;
+    margin-left: 15px;
+}
