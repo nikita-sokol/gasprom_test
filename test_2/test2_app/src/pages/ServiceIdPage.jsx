@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {GET_SERVICE_REQUESTED} from "../saga/reducers/serviceContentReducer";
+import {GET_SERVICE_REQUESTED} from "../store/serviceContentReducer";
 import ErrorBlock from "../components/UI/error/ErrorBlock";
 import Loader from "../components/UI/Loader/Loader";
+import {fetchServiseContent} from "../asyncActions/fetching";
 
 const ServiceIdPage = () => {
     const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const ServiceIdPage = () => {
 
     useEffect(()=>{
         if (!service) {
-            dispatch({type:GET_SERVICE_REQUESTED, payload: params.id});
+            dispatch(fetchServiseContent(store, params));
         }
     },[]);
 

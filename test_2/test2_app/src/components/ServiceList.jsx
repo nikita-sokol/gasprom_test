@@ -1,14 +1,15 @@
 import React, {useEffect} from 'react';
 import MyLink from "./UI/link/MyLink";
 import {useDispatch, useSelector} from "react-redux";
-import {getServiceNameRequestAction} from "../saga/reducers/serviceNameReducer";
+import {getServiceNameRequestAction} from "../store/serviceNameReducer";
 import ErrorBlock from "./UI/error/ErrorBlock";
 import Loader from "./UI/Loader/Loader";
+import {fetchServiseName} from "../asyncActions/fetching";
 
 const ServiceList = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
-        dispatch(getServiceNameRequestAction());
+        dispatch(fetchServiseName());
     },[]);
 
     const store = useSelector(store => store.serviceName);
