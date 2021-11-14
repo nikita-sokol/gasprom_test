@@ -1,6 +1,7 @@
 const defaultState = {
     loading: false,
-    services: []
+    services: [],
+    error: false
 };
 
 export const GET_SERVICES_REQUESTED = 'GET_SERVICES_REQUESTED';
@@ -13,12 +14,14 @@ const serviceNameReduser = (state = defaultState, action) => {
         case GET_SERVICES_REQUESTED:
             return {
                 loading: true,
-                services: [...state.services]
+                services: [...state.services],
+                error: false
             }
         case GET_SERVICES_SUCCESS:
             return {
                 loading: false,
-                services: [...action.payload]
+                services: [...action.payload],
+                error: false
             }
         case GET_SERVICES_FAILURE:
             return {
